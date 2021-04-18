@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CV_Chatbot.Constants;
 using Microsoft.Bot.Builder.AI.Luis;
 using Microsoft.Bot.Builder.AI.QnA.Recognizers;
 using Microsoft.Bot.Builder.Dialogs;
@@ -29,13 +30,49 @@ namespace CV_Chatbot.Dialogs
                         Actions = WelcomeUserSteps()
                     },
 
-                    new OnIntent("STUDIES")
+                    new OnIntent(LuisConstant.STUDIES)
                     {
+                        Condition = $"#{LuisConstant.STUDIES}.score >= 0.8",
                         Actions = new List<Dialog>()
                         {
                             new SendActivity("Una intención de estudio")
                         },
-                       
+
+                    },
+
+                    new OnIntent(LuisConstant.WELCOME)
+                    {
+                        Condition = $"#{LuisConstant.WELCOME}.score >=0.8",
+                        Actions = new List<Dialog>()
+                        {
+                            new SendActivity("Una intención de bienvenida")
+                        },
+                    },
+
+                    new OnIntent(LuisConstant.EXPERIENCE)
+                    {
+                        Condition = $"#{LuisConstant.EXPERIENCE}.score >=0.8",
+                        Actions = new List<Dialog>()
+                        {
+                            new SendActivity("Una intención de experiencia")
+                        },
+                    },
+
+                    new OnIntent(LuisConstant.CONTACT)
+                    {
+                        Condition = $"#{LuisConstant.CONTACT}.score >=0.8",
+                        Actions = new List<Dialog>()
+                        {
+                            new SendActivity("Una intención de contacto")
+                        },
+                    },
+
+                    new OnIntent(LuisConstant.CANCEL)
+                    {
+                        Condition = $"#{LuisConstant.CANCEL}.score >=0.8",
+                        Actions = new List<Dialog>()
+                        {
+                            new SendActivity("Una intención de cancelar")                        },
                     },
 
                     // Respond to user on message activity
@@ -44,7 +81,7 @@ namespace CV_Chatbot.Dialogs
                         Actions = new List<Dialog>
                         {
                             new SendActivity("No soy ninguna intención")
-                        }
+                        } 
                     },
                 };
         }
@@ -61,13 +98,12 @@ namespace CV_Chatbot.Dialogs
                     {
                         // Note: Some channels send two conversation update events - one for the Bot added to the conversation and another for user.
                         // Filter cases where the bot itself is the recipient of the message. 
-                        //new SendActivity("Hola!")
                         new IfCondition()
                         {
                             Condition = "$foreach.value.name != turn.activity.recipient.name",
                             Actions = new List<Dialog>()
                             {
-                                new SendActivity("Hello, I'm the multi-turn prompt bot. Please send a message to get started!")
+                                new SendActivity("Hola! Bienvenido a mi chatbot, un lugar donde podes conocerme hablando.")
                             }
                         }
                     }
