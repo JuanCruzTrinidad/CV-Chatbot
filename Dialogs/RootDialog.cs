@@ -18,7 +18,7 @@ namespace CV_Chatbot.Dialogs
         public RootDialog(IConfiguration configuration) : base(nameof(RootDialog))
         {
             _configuration = configuration;
-            //Recognizer = CreateCrossTrainedRecognizer(configuration);
+            Recognizer = CreateCrossTrainedRecognizer(configuration);
             // These steps are executed when this Adaptive Dialog begins
 
             Triggers = new List<OnCondition>()
@@ -29,11 +29,23 @@ namespace CV_Chatbot.Dialogs
                         Actions = WelcomeUserSteps()
                     },
 
-                    //// Respond to user on message activity
-                    //new OnUnknownIntent()
-                    //{
-                    //    Actions = GatheUserInformation()
-                    //},
+                    new OnIntent("STUDIES")
+                    {
+                        Actions = new List<Dialog>()
+                        {
+                            new SendActivity("Una intención de estudio")
+                        },
+                       
+                    },
+
+                    // Respond to user on message activity
+                    new OnUnknownIntent()
+                    {
+                        Actions = new List<Dialog>
+                        {
+                            new SendActivity("No soy ninguna intención")
+                        }
+                    },
                 };
         }
 
@@ -49,15 +61,15 @@ namespace CV_Chatbot.Dialogs
                     {
                         // Note: Some channels send two conversation update events - one for the Bot added to the conversation and another for user.
                         // Filter cases where the bot itself is the recipient of the message. 
-                        new SendActivity("Hola!")
-                        //new IfCondition()
-                        //{
-                        //    Condition = "$foreach.value.name != turn.activity.recipient.name",
-                        //    Actions = new List<Dialog>()
-                        //    {
-                        //        new SendActivity("Hello, I'm the multi-turn prompt bot. Please send a message to get started!")
-                        //    }
-                        //}
+                        //new SendActivity("Hola!")
+                        new IfCondition()
+                        {
+                            Condition = "$foreach.value.name != turn.activity.recipient.name",
+                            Actions = new List<Dialog>()
+                            {
+                                new SendActivity("Hello, I'm the multi-turn prompt bot. Please send a message to get started!")
+                            }
+                        }
                     }
                 }
             };
@@ -71,7 +83,7 @@ namespace CV_Chatbot.Dialogs
                 Recognizers = new List<Recognizer>()
                 {
                     CreateLuisRecognizer(configuration),
-                    CreateQnAMakerRecognizer(configuration)
+                    //CreateQnAMakerRecognizer(configuration)
                 }
             };
         }
@@ -108,15 +120,15 @@ namespace CV_Chatbot.Dialogs
 
         private static Recognizer CreateLuisRecognizer(IConfiguration Configuration)
         {
-            if (string.IsNullOrEmpty(Configuration["luis:AddToDoDialog_en_us_lu"]) || string.IsNullOrEmpty(Configuration["LuisAPIKey"]) || string.IsNullOrEmpty(Configuration["LuisAPIHostName"]))
+            if (string.IsNullOrEmpty(Configuration["Luis:LuisAPIKey"]) || string.IsNullOrEmpty(Configuration["Luis:LuisAPIHostName"]))
             {
                 throw new Exception("Your AddToDoDialog's LUIS application is not configured for AddToDoDialog. Please see README.MD to set up a LUIS application.");
             }
             return new LuisAdaptiveRecognizer()
             {
-                Endpoint = Configuration["LuisAPIHostName"],
-                EndpointKey = Configuration["LuisAPIKey"],
-                ApplicationId = Configuration["luis:AddToDoDialog_en_us_lu"],
+                Endpoint = Configuration["Luis:LuisAPIHostName"],
+                EndpointKey = Configuration["Luis:LuisAPIKey"],
+                ApplicationId = Configuration["Luis:AppID"],
 
                 // Id needs to be LUIS_<dialogName> for cross-trained recognizer to work.
                 Id = $"LUIS_{nameof(RootDialog)}"
