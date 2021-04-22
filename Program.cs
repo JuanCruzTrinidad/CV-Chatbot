@@ -24,3 +24,9 @@ namespace CV_Chatbot
                 });
     }
 }
+
+/*
+ * RoadMap => Usar lenguaje natural. Hacer los archivos .lg por dialogo.
+ * Separar los dialogos por carpeta.
+ * 
+ */

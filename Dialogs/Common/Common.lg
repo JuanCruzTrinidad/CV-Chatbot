@@ -1,0 +1,8 @@
+﻿﻿> Language generation content.
+> See https://aka.ms/language-generation to learn more.
+
+> Structured template
+# WelcomeActions
+[Activity
+    SuggestedActions = Estudios | Experiencia | Contacto | Ayuda | Cancelar
+]

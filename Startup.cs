@@ -48,6 +48,9 @@ namespace CV_Chatbot
             // Register declarative components
             ComponentRegistration.Add(new DeclarativeComponentRegistration());
 
+            ComponentRegistration.Add(new LanguageGenerationComponentRegistration());
+
+
             // Register adapive dialog components
             ComponentRegistration.Add(new AdaptiveComponentRegistration());
 

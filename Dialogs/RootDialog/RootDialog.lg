@@ -1,0 +1,53 @@
+﻿> Language generation content. > See https: //aka.ms/language-generation to learn more.
+
+> Structured template
+[ Common ](../Common/Common.lg)
+
+# WelcomePrefix
+- Hola!
+- Hola, cómo estás?
+- Buenas!
+- ¿Todo bien?
+
+# WelcomeSufix
+- ¿Empezamos?
+- ¿Por donde quéres empezar?
+- ¿Qué te gustaría saber de mí?
+
+#WelcomeRetry
+- Me parece que ya te conozco... ¿No nos saludamos recién? ${WelcomeSufix}
+
+#Welcome
+- ```
+ ${WelcomePrefix()} Te doy la bienvenida a mi CV - Chatbots, espero que sea de tu agrado y puedas utilizar para conocerme un poco más, de una forma un poco distinta a lo habitual.
+ Te invito a ponerme a prueba y preguntar, dejar tu comentarios y sugerencias con respecto a como volver esto más dinamico y real. ${WelcomeSufix()}
+ ```
+
+#Experience
+- ```
+ Buenas, te cuento un poco sobre mi experiencia laboral. 
+ Actualmente trabajo hace poco más de un año en Softtek como desarrollador FullStack. 
+ Me enfoco preferiblemente en tareas asociadas al Backend (Web apis, servicios, modelaje de datos.) pero tengo conocimientos en Frontend utilizando React orientado a funciones con JS y Material UI para conseguir la personalización adecuada del lado del Front. 
+ También tengo buen manejo del portal de Azure para administrar recursos, y de Azure devOps tanto para automatizar tareas o para hacer seguimiento de las mismas mediante las métodologias ágiles. 
+ Te invito a preguntarme para conocerme un poco más. 
+ ```
+
+#Studies
+- ```
+ Actualmente estoy cursando la carrera de Licenciatura en Sistemas en la Universidad de Lanús, me encuentro cursando próximo a recibirme de Técnico Analista Programador, pero orientado a conseguir mi Licenciatura.
+ ```
+
+#Contact
+- ```
+ ¿Te interesa contactarme? Te invito dejo mi Linkedin y mi email. Además existe la posibilidad de enviarme un mail desde el mismo chat. Si te interesa, podes pedirle al bot que te ayude.
+ ```
+ > Añadir una adaptive card con linkedin, github, botón para enviar un mail?
+
+#Cancel
+- Nos vemos!
+- Saludos, estamos en contacto!
+
+#NoIntention
+- No tengo la información necesaria para ayudarte con ese tema, si te parece te comentó en los temas en los que te puedo ayudar.
+- La verdad no se que responderte, si querés podes elegir una de estas opciones y sabré responderte mejor.
+- Uff, me falta entrenamiento. Pero te puedo ayudar en esto: 

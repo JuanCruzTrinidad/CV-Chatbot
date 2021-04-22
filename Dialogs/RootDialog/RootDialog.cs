@@ -1,14 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using CV_Chatbot.Constants;
-using Microsoft.Bot.Builder.AI.Luis;
-using Microsoft.Bot.Builder.AI.QnA.Recognizers;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Dialogs.Adaptive;
+using Microsoft.Bot.Builder.AI.Luis;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Actions;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Conditions;
+using Microsoft.Bot.Builder.Dialogs.Adaptive.Generators;
+using System.IO;
+using Microsoft.Bot.Builder.LanguageGeneration;
+using Microsoft.Bot.Builder.Dialogs.Adaptive.Input;
+using Microsoft.Bot.Builder.Dialogs.Adaptive.Templates;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Recognizers;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Bot.Builder.AI.QnA.Recognizers;
+using AdaptiveExpressions;
+using System.Threading.Tasks;
+using System.Net.WebSockets;
+using Microsoft.Bot.Builder;
+using CV_Chatbot.Constants;
 
 namespace CV_Chatbot.Dialogs
 {
@@ -20,8 +29,10 @@ namespace CV_Chatbot.Dialogs
         {
             _configuration = configuration;
             Recognizer = CreateCrossTrainedRecognizer(configuration);
+            string[] paths = { ".", "Dialogs", "RootDialog", "RootDialog.lg" };
+            string fullPath = Path.Combine(paths);
             // These steps are executed when this Adaptive Dialog begins
-
+            Generator = new TemplateEngineLanguageGenerator(Templates.ParseFile(fullPath));
             Triggers = new List<OnCondition>()
                 {
                     // Add a rule to welcome user
@@ -35,9 +46,8 @@ namespace CV_Chatbot.Dialogs
                         Condition = $"#{LuisConstant.STUDIES}.score >= 0.8",
                         Actions = new List<Dialog>()
                         {
-                            new SendActivity("Una intención de estudio")
-                        },
-
+                            new SendActivity("${Studies()}")
+                        }
                     },
 
                     new OnIntent(LuisConstant.WELCOME)
@@ -45,7 +55,8 @@ namespace CV_Chatbot.Dialogs
                         Condition = $"#{LuisConstant.WELCOME}.score >=0.8",
                         Actions = new List<Dialog>()
                         {
-                            new SendActivity("Una intención de bienvenida")
+                            new SendActivity("${WelcomeRetry()}"),
+                            new SendActivity("${WelcomeActions()}")
                         },
                     },
 
@@ -54,7 +65,7 @@ namespace CV_Chatbot.Dialogs
                         Condition = $"#{LuisConstant.EXPERIENCE}.score >=0.8",
                         Actions = new List<Dialog>()
                         {
-                            new SendActivity("Una intención de experiencia")
+                            new SendActivity("${Experience()}")
                         },
                     },
 
@@ -63,7 +74,7 @@ namespace CV_Chatbot.Dialogs
                         Condition = $"#{LuisConstant.CONTACT}.score >=0.8",
                         Actions = new List<Dialog>()
                         {
-                            new SendActivity("Una intención de contacto")
+                            new SendActivity("${Contact()}")
                         },
                     },
 
@@ -72,7 +83,8 @@ namespace CV_Chatbot.Dialogs
                         Condition = $"#{LuisConstant.CANCEL}.score >=0.8",
                         Actions = new List<Dialog>()
                         {
-                            new SendActivity("Una intención de cancelar")                        },
+                            new SendActivity("${Cancel()}")                       
+                        },
                     },
 
                     // Respond to user on message activity
@@ -80,7 +92,8 @@ namespace CV_Chatbot.Dialogs
                     {
                         Actions = new List<Dialog>
                         {
-                            new SendActivity("No soy ninguna intención")
+                            new SendActivity("${NoIntention()}"),
+                            new SendActivity("${WelcomeActions()}")
                         } 
                     },
                 };
@@ -103,7 +116,8 @@ namespace CV_Chatbot.Dialogs
                             Condition = "$foreach.value.name != turn.activity.recipient.name",
                             Actions = new List<Dialog>()
                             {
-                                new SendActivity("Hola! Bienvenido a mi chatbot, un lugar donde podes conocerme hablando.")
+                                new SendActivity("${Welcome()}"),
+                                new SendActivity("${WelcomeActions()}")
                             }
                         }
                     }
