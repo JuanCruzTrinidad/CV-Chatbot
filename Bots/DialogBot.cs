@@ -14,16 +14,21 @@ namespace CV_Chatbot.Dialogs
     // each with dependency on distinct IBot types, this way ASP Dependency Injection can glue everything together without ambiguity.
     // The ConversationState is used by the Dialog system. The UserState isn't, however, it might have been used in a Dialog implementation,
     // and the requirement is that all BotState objects are saved at the end of a turn.
-    public class DialogBot<T> : ActivityHandler
-        where T : Dialog
+    public class DialogBot<T> :  ActivityHandler where T : Dialog 
     {
         private readonly ILogger Logger;
         private readonly DialogManager DialogManager;
+        protected readonly BotState ConversationState;
+        protected readonly Dialog Dialog;
+        protected readonly BotState UserState;
 
-        public DialogBot( T dialog, ILogger<DialogBot<T>> logger)
+        public DialogBot(ConversationState conversationState, UserState userState, T dialog, ILogger<DialogBot<T>> logger)
         {
+            ConversationState = conversationState;
+            UserState = userState;
+            Dialog = dialog;
             Logger = logger;
-            DialogManager = new DialogManager(dialog);
+            DialogManager = new DialogManager(Dialog);
         }
 
         public override async Task OnTurnAsync(ITurnContext turnContext, CancellationToken cancellationToken = default(CancellationToken))

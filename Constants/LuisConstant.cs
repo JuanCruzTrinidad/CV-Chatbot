@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace CV_Chatbot.Constants
+﻿namespace CV_Chatbot.Constants
 {
     public static class LuisConstant
     {
@@ -12,6 +7,11 @@ namespace CV_Chatbot.Constants
         public const string CANCEL = "CANCEL";
         public const string CONTACT = "CONTACT";
         public const string EXPERIENCE = "EXPERIENCE";
+        public const string BACKEND = "BACKEND";
+        public const string FRONTEND = "FRONTEND";
+        public const string CLOUD = "CLOUD";
+        public const string EMAIL = "EMAIL";
+        public const string BYE = "BYE";
     }
 }
 

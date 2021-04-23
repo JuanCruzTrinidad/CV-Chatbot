@@ -1,0 +1,35 @@
+﻿#Experience
+- ```
+ Buenas, te cuento un poco sobre mi experiencia laboral. 
+ Actualmente trabajo hace poco más de un año en Softtek como desarrollador FullStack. 
+ Me enfoco preferiblemente en tareas asociadas al Backend (Web apis, servicios, modelaje de datos.) pero tengo conocimientos en Frontend utilizando React orientado a funciones con JS y Material UI para conseguir la personalización adecuada del lado del Front. 
+ También tengo buen manejo del portal de Azure para administrar recursos, y de Azure devOps tanto para automatizar tareas o para hacer seguimiento de las mismas mediante las métodologias ágiles. 
+ Te invito a preguntarme para conocerme un poco más. 
+ ```
+
+#Backend
+ - ``` 
+ Me siento cómodo trabajando en el backend. Normalmente trabajo utilizando web api para el backend, me gusta trabajar de forma organizada y modular, pensando con detalle la separación de las responsabilidades.
+ Me enfoco en utilizar los patrones de diseño y llevar mis programas de la manera más SOLID y modular posible. Creo que la reutilización de herramientas y el buen uso de los servicios hacen la diferencia en la vida útil de una aplicación.
+ ```
+ - ``` 
+ Para las bases de datos relacionales tengo experiencia trabajando con MySql y SQL Server. Para las base de datos no relacionales trabaje en alguna ocasión con CosmosDB.
+ Me siento cómodo utilizando POO, tratando siempre de que en mis programas este aplicado correctamente (ni muy poco, ni en exceso), lo necesario para que sea un código legible y escalable.
+ ```
+
+#Frontend
+ - ```
+ Trabajando en el frontend encuentro muy útil las nuevas herramientas y frameworks que nos ofrece el mercado como por ejemplo React. Normalmente utilizo React con Redux para el control del estado y axios para las peticiones al backend. La mayoría de las aplicaciones que realice tienen el concepto de SPA. 
+ A la hora de diseñar siento de mucha ayuda trabajar con wrappers como Material UI, Material UI Tables... soluciones probadas a problemas muy frecuentes que te permiten trabajar de una forma dínamica y otorgar al usuario final una muy buena experiencia.
+  ```
+
+#Cloud
+- ```
+ Empece hace poco a trabajar en sistemas y no tengo tanta experiencias en aplicaciones on-premise. La mayoría de las aplicaciones en las que trabaje estaban hospedadas en la nube, más especificamente en Azure.
+ Las capacidades de control y monitoreo y los distintos recursos (por ejemplo para realizar este chatbot LUIS) que te ofrecen hacen la experiencia de desarrollador muy buena, dando más espacio a buscar innovar constantemente!
+ ```
+
+# ExperienceActions
+[Activity
+    SuggestedActions = Backend | Frontend | Cloud
+]
