@@ -74,6 +74,9 @@ namespace CV_Chatbot
 
             // Create the bot as a transient. In this case the ASP Controller is expecting an IBot.
             services.AddSingleton<IBot, DialogBot<RootDialog>>();
+
+          
+            services.AddSpaStaticFiles(configuration => configuration.RootPath = "wwwroot");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -91,6 +94,11 @@ namespace CV_Chatbot
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSpa(spa =>
+            {
+                spa.Options.SourcePath = "clientapp/src";
+            });
 
             app.UseEndpoints(endpoints =>
             {

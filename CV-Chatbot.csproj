@@ -6,7 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="5.0.0-preview.1.20124.5" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="5.0.5" />
     <PackageReference Include="Microsoft.Bot.Builder.AI.Luis" Version="4.13.0" />
     <PackageReference Include="Microsoft.Bot.Builder.AI.QnA" Version="4.13.0" />
     <PackageReference Include="Microsoft.Bot.Builder.Dialogs" Version="4.13.0" />
@@ -16,6 +19,10 @@
     <PackageReference Include="Microsoft.Bot.Schema" Version="4.13.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>
