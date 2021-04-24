@@ -25,10 +25,11 @@ steps:
   inputs:
     solution: '$(solution)'
     msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
-
-- task: VSTest@2
+- task: AzureRmWebAppDeployment@4
   inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'Evaluación gratuita(23b7377f-48c3-4714-b886-f066a7e0fe0c)'
+    appType: 'webApp'
+    WebAppName: 'cv-chatbot'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    JSONFiles: 'appsettings.json'
