@@ -1,13 +1,69 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Chatbot</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script crossorigin="anonymous"
+            src="https://cdn.botframework.com/botframework-webchat/latest/webchat.js"></script>
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+        }
+
+        #webchat {
+            height: 100%;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
-    Soy un mensaje
+    <div id="webchat" role="main"></div>
+    <script>
+        var userName;
+        var userID;
+        var userEmail;
+        var xhrUser;
+        var urlUser;
+        var xhrToken;
+        var idConversation;
+
+        function processUserRequest() {
+                console.log("entro")
+                var urlApp =  'https://localhost:44322/'
+                var urlToken = urlApp.concat('api/Auth');
+                xhrToken.open('GET', urlToken, true);
+                xhrToken.send();
+                xhrToken.onreadystatechange = processTokenRequest;
+        }
+
+        function processTokenRequest() {
+            console.log("entro")
+            if (xhrToken.readyState == 4 && xhrToken.status == 200) {
+                var data = JSON.parse(xhrToken.responseText);
+                var token = data.token;
+                idConversation = data.idConversation;
+
+                window.WebChat.renderWebChat(
+                    {
+                        directLine: window.WebChat.createDirectLine({
+                            token: token
+                        }),
+                        userID: 'asdasdasdasd12312',
+                        username: 'Web Chat User',
+                        locale: 'en-US'
+                    },
+                    document.getElementById('webchat')
+                );
+            }
+        }
+
+        window.onload = function () {
+            xhrToken = new XMLHttpRequest();
+            processUserRequest();
+        };
+    </script>
 </body>
 </html>
