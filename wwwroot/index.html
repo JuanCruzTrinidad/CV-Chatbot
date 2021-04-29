@@ -1,69 +1,22 @@
 ﻿<!DOCTYPE html>
 <html>
-<head>
-    <script crossorigin="anonymous"
-            src="https://cdn.botframework.com/botframework-webchat/latest/webchat.js"></script>
-    <style>
-        html,
-        body {
-            height: 100%;
-        }
-
-        body {
-            margin: 0;
-        }
-
-        #webchat {
-            height: 100%;
-            width: 100%;
-        }
-    </style>
-</head>
 <body>
-    <div id="webchat" role="main"></div>
-    <script>
-        var userName;
-        var userID;
-        var userEmail;
-        var xhrUser;
-        var urlUser;
-        var xhrToken;
-        var idConversation;
-
-        function processUserRequest() {
-                console.log("entro")
-                var urlApp =  'https://localhost:44322/'
-                var urlToken = urlApp.concat('api/Auth');
-                xhrToken.open('GET', urlToken, true);
-                xhrToken.send();
-                xhrToken.onreadystatechange = processTokenRequest;
-        }
-
-        function processTokenRequest() {
-            console.log("entro")
-            if (xhrToken.readyState == 4 && xhrToken.status == 200) {
-                var data = JSON.parse(xhrToken.responseText);
-                var token = data.token;
-                idConversation = data.idConversation;
-
-                window.WebChat.renderWebChat(
-                    {
-                        directLine: window.WebChat.createDirectLine({
-                            token: token
-                        }),
-                        userID: 'asdasdasdasd12312',
-                        username: 'Web Chat User',
-                        locale: 'en-US'
-                    },
-                    document.getElementById('webchat')
-                );
-            }
-        }
-
-        window.onload = function () {
-            xhrToken = new XMLHttpRequest();
-            processUserRequest();
-        };
-    </script>
+    <iframe id="chat" style="width: 400px; height: 400px;" src=''></iframe>
 </body>
+<script>
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', "https://webchat.botframework.com/api/tokens", true);
+    xhr.setRequestHeader('Authorization', 'BotConnector ' + 'Zhvaz353c5U.dVW7Jrsnk5BhMrmQvFd9SB2fco_-EwdGork4ws1s0Zs');
+    xhr.send();
+    xhr.onreadystatechange = processRequest;
+
+    function processRequest(e) {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            var response = JSON.parse(xhr.responseText);
+            document.getElementById("chat").src = "https://webchat.botframework.com/embed/juantrinidad?t=" + response
+        }
+    }
+
+</script>
 </html>
