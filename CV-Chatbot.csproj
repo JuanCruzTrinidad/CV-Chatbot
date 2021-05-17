@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>CV_Chatbot</RootNamespace>
+    <UserSecretsId>e1772018-f174-4c92-b51c-37dc1436dccf</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

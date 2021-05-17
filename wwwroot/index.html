@@ -1,14 +1,11 @@
 ﻿<!DOCTYPE html>
-<html lang="en-US">
+<html>
 <head>
-    <title>Web Chat</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script crossorigin="anonymous"
-            src="https://cdn.botframework.com/botframework-webchat/latest/webchat-minimal.js"></script>
+            src="https://cdn.botframework.com/botframework-webchat/latest/webchat.js"></script>
     <style>
         html,
         body {
-            background-color: #f7f7f7;
             height: 100%;
         }
 
@@ -17,34 +14,25 @@
         }
 
         #webchat {
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
             height: 100%;
-            margin: auto;
-            max-width: 480px;
-            min-width: 360px;
+            width: 100%;
         }
     </style>
 </head>
 <body>
     <div id="webchat" role="main"></div>
     <script>
-        (async function () {
-            const res = await fetch('https://juantrinidad.azurewebsites.net/.bot/v3/directline/tokens/generate', {
-                method: 'POST', headers: { 'Authorization': 'Bearer ' + '0HoFjkIP43I.Yba-TOFzrSJyX3WoSIVl-6em34SdSwZ1jM6CkkXRNhs'}});
-            const { token } = await res.json();
-
-            window.WebChat.renderWebChat(
-                {
-                    directLine: await window.WebChat.createDirectLineAppServiceExtension({
-                        domain: 'https://juantrinidad.azurewebsites.net/.bot/v3/directline',
-                        token
-                    })
-                },
-                document.getElementById('webchat')
-            );
-
-            document.querySelector('#webchat > *').focus();
-        })().catch(err => console.error(err));
+      window.WebChat.renderWebChat(
+        {
+          directLine: window.WebChat.createDirectLine({
+              token: 'Zhvaz353c5U.dVW7Jrsnk5BhMrmQvFd9SB2fco_-EwdGork4ws1s0Zs'
+          }),
+          userID: '24369962-fb54-4b65-b0d1-3c620129ee38',
+          username: 'Web Chat User',
+          locale: 'en-US'
+        },
+        document.getElementById('webchat')
+      );
     </script>
 </body>
 </html>
