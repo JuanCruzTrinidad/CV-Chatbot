@@ -23,7 +23,7 @@
               "items": [
                 {
                   "type": "Image",
-                  "url": "https://img.flaticon.com/icons/png/512/174/174857.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF",
+                  "url": "http://pngimg.com/uploads/linkedIn/linkedIn_PNG26.png",
                   "size": "Medium",
                   "selectAction": {
                     "type": "Action.OpenUrl",
@@ -47,7 +47,7 @@
                     "url": "https://github.com/JuanCruzTrinidad?tab=repositories",
                     "title": "Github"
                   },
-                  "url": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
+                  "url": "https://image.flaticon.com/icons/png/512/25/25231.png",
                   "size": "Medium"
                 }
               ]

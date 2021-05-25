@@ -33,6 +33,7 @@ namespace CV_Chatbot.Dialogs
                 Generator = new TemplateEngineLanguageGenerator(Templates.ParseFile(fullPath)),
                 Triggers = new List<OnCondition>()
                 {
+                    new OnDialogEvent("webchat/join") { Actions = WelcomeUserSteps()  },
                     // Add a rule to welcome user
                     new OnConversationUpdateActivity() { Actions = WelcomeUserSteps() },
 

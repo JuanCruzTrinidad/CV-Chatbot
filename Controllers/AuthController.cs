@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -18,32 +20,40 @@ namespace CV_Chatbot.Controllers
         [HttpGet]
         public async Task<IActionResult> PostAuthentication()
         {
-            var secretToken = "3d3BvvaxRVQ.03gWv57cdppXnyz0MvyO0kfVR29udeZGsTx44p-taiM";// _configuration.GetValue<string>("SecretToken");
-            HttpClient client = new HttpClient();
-            JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
+            var secret = "QT12Vn0EG1c.tu0zWR9exCLFNCoB_vufwizTIJqdh5IznkN-Q-LB1VU";
 
-            //Realiza un Get con el secret token para generar uno temporal de sesion
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, $"https://webchat.botframework.com/api/tokens");
-            request.Headers.Authorization = new AuthenticationHeaderValue("BotConnector", secretToken);
+            HttpClient client = new HttpClient();
+
+            HttpRequestMessage request = new HttpRequestMessage(
+                HttpMethod.Post,
+                $"https://directline.botframework.com/v3/directline/tokens/generate");
+
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", secret);
+
+            var userId = $"dl_{Guid.NewGuid()}";
+
+            request.Content = new StringContent(
+                JsonConvert.SerializeObject(
+                    new { User = new { Id = userId } }),
+                    Encoding.UTF8,
+                    "application/json");
+
             var response = await client.SendAsync(request);
             string token = String.Empty;
-            string jsonresult = String.Empty;
+
             if (response.IsSuccessStatusCode)
             {
-                token = await response.Content.ReadAsStringAsync();
-                var tokenConvert = JsonSerializer.Deserialize<DirectLineToken>(token);
-                //var tokenJWT = handler.ReadJwtToken(token) as JwtSecurityToken;
-                //var idconversacion = tokenJWT.Claims.FirstOrDefault(c => c.Type == "conv").Value;
-                //jsonresult = await Task.Run(() => JsonSerializer.Serialize(new { idConversation = idconversacion, token = token }));
-                return Ok(tokenConvert.token);
+                var body = await response.Content.ReadAsStringAsync();
+                token = JsonConvert.DeserializeObject<DirectLineToken>(body).token;
             }
-            else
+
+            var config = new ChatConfig()
             {
-                var notSuccessMesagge = $"Respuesta sin exito \nFecha: {DateTime.Today} \nCodigo: {response.StatusCode} \nMensaje: {response.RequestMessage}";
-                //_logger.LogInformation(notSuccessMesagge);                    
-                return Forbid();
-            }
-            return Ok("Oka");
+                Token = token,
+                UserId = userId
+            };
+
+            return Ok(config);
         }
     }
 
@@ -52,5 +62,11 @@ namespace CV_Chatbot.Controllers
         public string token { get; set; }
         public string conversationId { get; set; }
         public int expires_in { get; set; }
+    }
+
+    public class ChatConfig
+    {
+        public string Token { get; set; }
+        public string UserId { get; set; }
     }
 }

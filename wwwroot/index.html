@@ -1,50 +1,9 @@
-﻿<!--<!DOCTYPE html>
-<html>
-<head>
-    <script crossorigin="anonymous"
-            src="https://cdn.botframework.com/botframework-webchat/latest/webchat.js"></script>
-    <style>
-        html,
-        body {
-            height: 100%;
-        }
-
-        body {
-            margin: 0;
-        }
-
-        #webchat {
-            height: 100%;
-            width: 100%;
-        }
-    </style>
-</head>
-<body>
-    <iframe src='https://webchat.botframework.com/embed/cvChatbotJuanC?s=5N2YO3dQGi8.wUZXPW1X6o9xSyZCv2tQmkyXn6KJj2ktelCQgQtrr8g' style='min-width: 400px; width: 100%; min-height: 500px;'></iframe>
-    <div id="webchat" role="main"></div>
-    <script>
-        window.WebChat.renderWebChat(
-            {
-                directLine: window.WebChat.createDirectLine({
-                    token: '3d3BvvaxRVQ.03gWv57cdppXnyz0MvyO0kfVR29udeZGsTx44p-taiM'
-                }),
-                userID: '24369962-fb54-4b65-b0d1-3c620129ee38',
-                username: 'Web Chat User',
-                locale: 'en-US'
-            },
-            document.getElementById('webchat')
-        );
-    </script>
-</body>
-</html>-->
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en-US">
 <head>
-    <title>Web Chat</title>
+    <title>Juan Cruz Trinidad</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script crossorigin="anonymous"
-            src="https://cdn.botframework.com/botframework-webchat/latest/webchat-minimal.js"></script>
+    <script crossorigin="anonymous" src="https://cdn.botframework.com/botframework-webchat/latest/webchat.js"></script>
     <style>
         html,
         body {
@@ -56,36 +15,58 @@
             margin: 0;
         }
 
-        #webchat {
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-            height: 100%;
-            margin: auto;
-            max-width: 480px;
-            min-width: 360px;
-        }
+    #webchat { background-image: url('https://image.freepik.com/vector-gratis/fondo-gris-tecnologia_1035-9343.jpg'); background-position: center center; background-size: cover; box-shadow: 0 0 10px rgba(0, 0, 0, 0.05); height: 100%; margin: auto; max-width: 580px; min-width: 460px; }
     </style>
+
 </head>
 <body>
-    <iframe src='https://webchat.botframework.com/embed/juanTrinidadbotServices?s=WqudJIKTrEk.KLq8eDciIp0ZkG24Qu7EkaD2H63-vMUyZDv3VWjEhc8' style='min-width: 400px; width: 100%; min-height: 500px;'></iframe>    <!--<div id="webchat" role="main"></div>
+    <div id="webchat"></div>
     <script>
         (async function () {
-            const res = await fetch('https://cvjuantrinidad.azurewebsites.net/.bot/v3/directline/tokens/generate', {
-                method: 'POST', headers: { 'Authorization': 'Bearer ' + 'qz_0bafsXmo.Ev1RVY12d9GXQfPeHCwTNrzweLVMVyyWz4xJGlo5dmY' }
+            const styleSet = window.WebChat.createStyleSet({
+                bubbleBackground: 'rgba(0, 0, 255, .3)',
+                bubbleFromUserBackground: 'rgba(0, 255, 0, .3)',
+                bubbleBorderRadius: 10,
+                // rootHeight: '100%',
+               // rootWidth: '50%',
+                backgroundColor: 'none'
             });
+
+
+            // Set the avatar options. 
+            const avatarOptions = {
+                botAvatarInitials: 'JCT',
+                userAvatarInitials: 'U'
+            };
+
+            const res = await fetch('http://localhost:15465/api/Auth');
             const { token } = await res.json();
+            const store = window.WebChat.createStore({}, ({ dispatch }) => next => action => {
+                if (action.type === 'DIRECT_LINE/CONNECT_FULFILLED') {
+                    dispatch({
+                        type: 'WEB_CHAT/SEND_EVENT',
+                        payload: {
+                            name: 'webchat/join',
+                            value: { language: window.navigator.language }
+                        }
+                    });
+                }
+
+                return next(action);
+            });
 
             window.WebChat.renderWebChat(
                 {
-                    directLine: await window.WebChat.createDirectLineAppServiceExtension({
-                        domain: 'https://cvjuantrinidad.azurewebsites.net/.bot/v3/directline',
-                        token
-                    })
+                    directLine: window.WebChat.createDirectLine({ token }),
+                    store,
+                    styleSet,
+                    styleOptions: avatarOptions
                 },
                 document.getElementById('webchat')
             );
 
             document.querySelector('#webchat > *').focus();
         })().catch(err => console.error(err));
-    </script>-->
+    </script>
 </body>
 </html>
