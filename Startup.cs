@@ -11,11 +11,13 @@ using Microsoft.Bot.Builder.Dialogs.Declarative;
 using Microsoft.Bot.Builder.Integration.AspNet.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -92,8 +94,14 @@ namespace CV_Chatbot
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CV_Chatbot v1"));
             // app.UseHttpsRedirection();
             // app.UseDefaultFiles();
-            // app.UseStaticFiles();
-            app.UseFileServer(enableDirectoryBrowsing: true);
+            app.UseStaticFiles();
+            app.UseFileServer(new FileServerOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(env.ContentRootPath, "Dialogs")),
+                RequestPath = "/Dialogs",
+                EnableDirectoryBrowsing = true
+            }); 
             app.UseRouting();
 
             app.UseAuthorization();

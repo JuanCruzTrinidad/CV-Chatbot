@@ -6,6 +6,27 @@
     <UserSecretsId>e1772018-f174-4c92-b51c-37dc1436dccf</UserSecretsId>
   </PropertyGroup>
 
+  <!--<ItemGroup>
+    <None Remove="Dialogs\Common\Common.lg" />
+    <None Remove="Dialogs\ExperienceDialog\ExperienceDialog.lg" />
+    <None Remove="Dialogs\RootDialog\RootDialog.lg" />
+  </ItemGroup>-->
+
+  <ItemGroup>
+    <Content Include="Dialogs\Common\Common.lg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Dialogs\ExperienceDialog\ExperienceDialog.lg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Dialogs\RootDialog\RootDialog.lg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.5" />
