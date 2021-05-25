@@ -1,0 +1,75 @@
+﻿{
+  "type": "AdaptiveCard",
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.3",
+  "body": [
+    {
+      "type": "Container",
+      "style": "emphasis",
+      "items": [
+        {
+          "type": "ColumnSet",
+          "columns": [
+            {
+              "type": "Column",
+              "width": "stretch",
+              "items": [
+                {
+                  "type": "Input.Text",
+                  "placeholder": "Inserte un asunto",
+                  "id": "title",
+                  "label": "Asunto"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "Input.Text",
+          "placeholder": "Inserte un cuerpo",
+          "isMultiline": true,
+          "spacing": "Medium",
+          "isRequired": true,
+          "id": "body",
+          "label": "Cuerpo",
+          "errorMessage": "Por favor, ingrese un contenido para el email."
+        }
+      ],
+      "style": "emphasis"
+    },
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "width": 50,
+          "items": [
+            {
+              "type": "ActionSet",
+              "actions": [
+                {
+                  "type": "Action.Submit",
+                  "title": "Enviar",
+                  "id": "subfmitForm",
+                  "style": "positive",
+                  "associatedInputs": "auto"
+                }
+              ]
+            }
+          ],
+          "horizontalAlignment": "Center"
+        }
+      ],
+      "style": "emphasis"
+    }
+  ],
+  "backgroundImage": {
+    "horizontalAlignment": "Center",
+    "verticalAlignment": "Center"
+  }
+}

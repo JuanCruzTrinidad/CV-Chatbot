@@ -31,23 +31,40 @@ namespace CV_Chatbot.Dialogs
                 Generator = new TemplateEngineLanguageGenerator(Templates.ParseFile(fullPath)),
                 Triggers = new List<OnCondition>()
                 {
-                    new OnBeginDialog() { Actions = new List<Dialog>() { new SendActivity("${Experience()}"), new SendActivity("${ExperienceActions()}") } },
+                    new OnBeginDialog() { Actions = new List<Dialog>() 
+                    { 
+                        new SendActivity("${Experience()}"), 
+                        new SendActivity("${ExperienceActions()}") } 
+                    },
+
                     new OnIntent(LuisConstant.BACKEND)
                     {
                         Condition = $"#{LuisConstant.BACKEND}.score >= 0.8",
-                        Actions = new List<Dialog>() { new SendActivity("${Backend()}") }
+                        Actions = new List<Dialog>() 
+                        {
+                            new SendActivity("${Backend()}"),
+                            new SendActivity("${ExperienceActions()}")
+                        }
                     },
 
                     new OnIntent(LuisConstant.FRONTEND)
                     {
                         Condition = $"#{LuisConstant.FRONTEND}.score >=0.8",
-                        Actions = new List<Dialog>() { new SendActivity("${Frontend()}") }
+                        Actions = new List<Dialog>() 
+                        { 
+                            new SendActivity("${Frontend()}"),
+                            new SendActivity("${ExperienceActions()}")
+                        }
                     },
 
                     new OnIntent(LuisConstant.CLOUD)
                     {
                         Condition = $"#{LuisConstant.CLOUD}.score >=0.8",
-                        Actions = new List<Dialog>() { new SendActivity("${Cloud()}") }
+                        Actions = new List<Dialog>() 
+                        { 
+                            new SendActivity("${Cloud()}"),
+                            new SendActivity("${ExperienceActions()}")
+                        }
                     },
 
                 },

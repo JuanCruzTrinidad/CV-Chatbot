@@ -40,7 +40,7 @@ namespace CV_Chatbot.Dialogs
                     new OnIntent(LuisConstant.STUDIES)
                     {
                         Condition = $"#{LuisConstant.STUDIES}.score >= 0.8",
-                        Actions = new List<Dialog>() { new SendActivity("${Studies()}") }
+                        Actions = new List<Dialog>() { new SendActivity("${Studies()}"), new SendActivity("${WelcomeActions()}") }
                     },
 
                     new OnIntent(LuisConstant.WELCOME)
@@ -52,19 +52,28 @@ namespace CV_Chatbot.Dialogs
                     new OnIntent(LuisConstant.EXPERIENCE)
                     {// habra que poner un nuevo app id?
                         Condition = $"#{LuisConstant.EXPERIENCE}.score >=0.8",
-                        Actions = new List<Dialog>() {  new BeginDialog(nameof(ExperienceDialog)), new SendActivity("Sali") }
+                        Actions = new List<Dialog>() {  new BeginDialog(nameof(ExperienceDialog)) }
                     },
 
                     new OnIntent(LuisConstant.CONTACT)
                     {
                         Condition = $"#{LuisConstant.CONTACT}.score >=0.8",
-                        Actions = new List<Dialog>() { new SendActivity("${Contact()}"), new SendActivity("${ContactCard()}") }
+                        Actions = new List<Dialog>() 
+                        { 
+                            new SendActivity("${Contact()}"), 
+                            new SendActivity("${ContactCard()}"),
+                            new SendActivity("${WelcomeActions()}"),
+                        }
                     },
 
                     new OnIntent(LuisConstant.EMAIL)
                     {
                         Condition = $"#{LuisConstant.EMAIL}.score >=0.8",
-                        Actions = new List<Dialog>() { new SendActivity("Email") }
+                        Actions = new List<Dialog>() 
+                        {
+                            new SendActivity("${Email()}"),
+                            new SendActivity("${EmailCard()}"),
+                        }
                     },
 
                     new OnIntent(LuisConstant.BYE)
@@ -76,8 +85,9 @@ namespace CV_Chatbot.Dialogs
                     new OnIntent(LuisConstant.CANCEL)
                     {
                         Condition = $"#{LuisConstant.CANCEL}.score >=0.8",
-                        Actions = new List<Dialog>() { new SendActivity("${Cancel()}") }
+                        Actions = new List<Dialog>() { new SendActivity("${Cancel()}") },
                     },
+
 
                     // Respond to user on message activity
                     new OnUnknownIntent()

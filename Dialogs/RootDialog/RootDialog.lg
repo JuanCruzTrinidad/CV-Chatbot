@@ -52,3 +52,8 @@
 [Activity
     Attachments = ${json(fromFile('./ContactAdaptiveCard.json'))}
 ]
+
+#EmailCard
+[Activity
+    Attachments = ${json(fromFile('./SendEmailAdaptiveCard.json'))}
+]
