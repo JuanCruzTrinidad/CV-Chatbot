@@ -39,7 +39,9 @@
                 userAvatarInitials: 'U'
             };
 
-            const res = await fetch('http://localhost:15465/api/Auth');
+            const url = window.location.href;
+            console.log(url)
+            const res = await fetch(`${url}api/Auth`);
             const { token } = await res.json();
             const store = window.WebChat.createStore({}, ({ dispatch }) => next => action => {
                 if (action.type === 'DIRECT_LINE/CONNECT_FULFILLED') {
