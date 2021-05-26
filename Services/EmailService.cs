@@ -23,9 +23,8 @@ namespace CV_Chatbot.Services
             var client = new SendGridClient(apiKey);
             var msg = new SendGridMessage()
             {
-                From = new EmailAddress("juancruztrinidad97@gmail.com", "Contacto"),
+                From = new EmailAddress("juancruztrinidaddeveloper@gmail.com", "Contacto"),
                 Subject = title,
-                PlainTextContent = "Errores encontrador en la valización del excel: ",
                 HtmlContent = body
             };
             msg.AddTo(new EmailAddress("juancruztrinidad97@gmail.com"));

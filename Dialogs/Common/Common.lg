@@ -4,5 +4,5 @@
 > Structured template
 # WelcomeActions
 [Activity
-    SuggestedActions = Estudios | Experiencia | Contacto | Cancelar
+    SuggestedActions = Estudios | Experiencia | Contacto | Email | ancelar
 ]
