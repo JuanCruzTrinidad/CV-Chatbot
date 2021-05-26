@@ -23,10 +23,10 @@ jobs:
       env:
           MicrosoftAppId: ${{ secrets.MICROSOFTAPPID }}
           MicrosoftAppPassword: ${{ secrets.MICROSOFTPASSWORD }}
-          Luis:LuisAPIHostName: ${{ secrets.LUISHOSTNAME }}
-          Luis:LuisAPIKey: ${{ secrets.LUISAPIKEY }}
-          Luis:RootAppID: ${{ secrets.LUISAPPROOT }}
-          Luis:ExperienceAppID: ${{ secrets.LUISAPPEXPERIENCE }}
+          Luis.LuisAPIHostName: ${{ secrets.LUISHOSTNAME }}
+          Luis.LuisAPIKey: ${{ secrets.LUISAPIKEY }}
+          Luis.RootAppID: ${{ secrets.LUISAPPROOT }}
+          Luis.ExperienceAppID: ${{ secrets.LUISAPPEXPERIENCE }}
           SendGrid: ${{ secrets.SENDGRID }}
           
     - name: Set up .NET Core
