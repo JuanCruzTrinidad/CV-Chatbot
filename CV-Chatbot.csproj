@@ -40,6 +40,7 @@
     <PackageReference Include="Microsoft.Bot.Builder.LanguageGeneration" Version="4.13.0" />
     <PackageReference Include="Microsoft.Bot.Schema" Version="4.13.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="SendGrid" Version="9.23.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 

@@ -67,6 +67,20 @@ namespace CV_Chatbot.Dialogs
                         }
                     },
 
+                    new OnIntent(LuisConstant.BACK)
+                    {
+                        Actions = new List<Dialog> 
+                        {
+                            new SendActivity("${Menu()}"),
+                            new SendActivity("${WelcomeActions()}")
+                        }
+                    },
+
+                    new OnUnknownIntent()
+                    {
+                        Actions = new List<Dialog> { new SendActivity("${NoIntention()}"), new SendActivity("${WelcomeActions()}") }
+                    },
+
                 },
                 AutoEndDialog = false
             };

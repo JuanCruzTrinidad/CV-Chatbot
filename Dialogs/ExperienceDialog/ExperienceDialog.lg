@@ -1,4 +1,7 @@
-﻿#Experience
+﻿
+[ Common ](../Common/Common.lg)
+
+#Experience
 - ```
  Buenas, te cuento un poco sobre mi experiencia laboral. 
  Actualmente trabajo hace poco más de un año en Softtek como desarrollador FullStack. 
@@ -29,7 +32,16 @@
  Las capacidades de control y monitoreo y los distintos recursos (por ejemplo para realizar este chatbot LUIS) que te ofrecen hacen la experiencia de desarrollador muy buena, dando más espacio a buscar innovar constantemente!
  ```
 
+ #NoIntention
+- No tengo la información necesaria para ayudarte con ese tema, si te parece te comentó en los temas en los que te puedo ayudar. 
+- La verdad no se que responderte, si querés podes elegir una de estas opciones y sabré responderte mejor. 
+- Uff, me falta entrenamiento. Pero te puedo ayudar en esto:
+
+#Menu
+- Elegiste volver al menu principal, estas son las opciones.
+- Te puedo ofrecer las siguientes opciones.
+
 # ExperienceActions
 [Activity
-    SuggestedActions = Backend | Frontend | Cloud
+    SuggestedActions = Backend | Frontend | Cloud | Atras
 ]

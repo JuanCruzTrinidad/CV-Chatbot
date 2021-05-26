@@ -13,6 +13,8 @@ using Microsoft.Bot.Builder.Dialogs.Adaptive.Recognizers;
 using CV_Chatbot.Constants;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Templates;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Input;
+using Microsoft.Bot.Builder;
+using CV_Chatbot.Services;
 
 namespace CV_Chatbot.Dialogs
 {
@@ -20,10 +22,12 @@ namespace CV_Chatbot.Dialogs
     {
         private readonly IConfiguration _configuration;
         private AdaptiveDialog _rootDialog;
+        private readonly IEmailService _emailService;
 
-        public RootDialog(IConfiguration configuration) : base(nameof(RootDialog))
+        public RootDialog(IConfiguration configuration, IEmailService emailService) : base(nameof(RootDialog))
         {
             _configuration = configuration;
+            _emailService = emailService;
             string[] paths = { ".", "Dialogs", "RootDialog", "RootDialog.lg" };
             string fullPath = Path.Combine(paths);
 
@@ -58,9 +62,9 @@ namespace CV_Chatbot.Dialogs
                     new OnIntent(LuisConstant.CONTACT)
                     {
                         Condition = $"#{LuisConstant.CONTACT}.score >=0.8",
-                        Actions = new List<Dialog>() 
-                        { 
-                            new SendActivity("${Contact()}"), 
+                        Actions = new List<Dialog>()
+                        {
+                            new SendActivity("${Contact()}"),
                             new SendActivity("${ContactCard()}"),
                             new SendActivity("${WelcomeActions()}"),
                         }
@@ -69,10 +73,31 @@ namespace CV_Chatbot.Dialogs
                     new OnIntent(LuisConstant.EMAIL)
                     {
                         Condition = $"#{LuisConstant.EMAIL}.score >=0.8",
-                        Actions = new List<Dialog>() 
+                        Actions = new List<Dialog>()
                         {
                             new SendActivity("${Email()}"),
                             new SendActivity("${EmailCard()}"),
+                        }
+                    },
+
+                   new OnIntent("None")
+                    {
+                        Condition = $"turn.activity.value.body != null",
+                        Actions = new List<Dialog>()
+                        {
+                            new CodeAction(async (dc, options) =>
+                            {
+                                dynamic value = dc.Context.Activity.Value;
+                                string body = (string)value?.body;
+                                string title = (string)value?.title;
+                                bool success = await _emailService.SendEmail(title, body);
+                                if(success)
+                                    await dc.Context.SendActivityAsync(MessageFactory.Text("Gracias por contactarte!"));
+                                else
+                                  await dc.Context.SendActivityAsync(MessageFactory.Text("Lo siento, ocurrio un problema al intentar enviar el email."));
+
+                                return await dc.EndDialogAsync();
+                            }),
                         }
                     },
 

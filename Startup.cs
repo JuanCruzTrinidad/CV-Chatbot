@@ -1,4 +1,5 @@
 using CV_Chatbot.Dialogs;
+using CV_Chatbot.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -76,10 +77,8 @@ namespace CV_Chatbot
 
             // Create the bot as a transient. In this case the ASP Controller is expecting an IBot.
             services.AddSingleton<IBot, DialogBot<RootDialog>>();
-
+            services.AddTransient<IEmailService, EmailService>();
             services.AddDirectoryBrowser();
-
-            //services.AddSpaStaticFiles(configuration => configuration.RootPath = "wwwroot");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -92,8 +91,6 @@ namespace CV_Chatbot
             }
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CV_Chatbot v1"));
-            // app.UseHttpsRedirection();
-            // app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseFileServer(new FileServerOptions
             {
